@@ -11,6 +11,5 @@ builds:
     ldflags:
       - "-w -s -X main.versionStr={{.Version}}"
 archives:
-  - format: gz
-    files:
+  - files:
       - none* # do not include README
