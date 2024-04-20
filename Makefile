@@ -1,10 +1,16 @@
-all: update build
+default: build
 
-update:
+main.go:
 	curl -O https://raw.githubusercontent.com/hashicorp/hcl/hcl2/cmd/hclfmt/main.go
+	awk '{gsub(/^const versionStr/,"var versionStr")}1' main.go > temp && mv temp main.go
 
-build: ## Build binary
-	go build
+build: main.go ## Build binary
+	go build -o bin/hclfmt
+
+# install goreleaser with
+# brew install goreleaser/tap/goreleaser
+snapshot: ## Build snapshot using goreleaser (requires goreleaser to be installed)
+	goreleaser build --snapshot --clean
 
 help:
 	@grep -E '^[a-zA-Z_-]+:.*?## .*$$' $(MAKEFILE_LIST) | \

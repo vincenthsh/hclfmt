@@ -1,23 +1,16 @@
 builds:
-- env:
-  - CGO_ENABLED=0
+  - binary: hclwrite
+    env:
+      - CGO_ENABLED=0
+    goos:
+      - darwin
+      - linux
+    goarch:
+      - amd64
+      - arm64
+    ldflags:
+      - "-w -s -X main.versionStr={{.Version}}"
 archives:
-- format: gz
-  files:
-    - none* # do not include README
-  replacements:
-    darwin: Darwin
-    linux: Linux
-    windows: Windows
-    386: i386
-    amd64: x86_64
-checksum:
-  name_template: 'checksums.txt'
-snapshot:
-  name_template: "{{ .Tag }}-next"
-changelog:
-  sort: asc
-  filters:
-    exclude:
-    - '^docs:'
-    - '^test:'
+  - format: gz
+    files:
+      - none* # do not include README

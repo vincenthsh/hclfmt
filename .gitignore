@@ -1,3 +1,4 @@
-/hclfmt
+/bin
 /dist
 /main.go
+.env
